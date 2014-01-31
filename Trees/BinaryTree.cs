@@ -42,7 +42,7 @@ namespace Trees
 
             while (currentNode != null)
             {
-                if (currentNode == null || currentNode.Value == value)
+                if (currentNode.Value == value)
                     return currentNode;
                 else if (currentNode.Value > value)
                     return Find(node.Left, value);
@@ -51,6 +51,51 @@ namespace Trees
             }
 
             return null;
+        }
+
+        public void Insert(Int32 value)
+        {
+            if (root == null)
+                root = new Node(value);
+            else
+                Insert(root, value);            
+        }
+
+        private void Insert(Node node, Int32 value)
+        {
+            if (value < node.Value)
+            {
+                if (node.Left == null)
+                    node.Left = new Node(value);
+                else
+                    Insert(node.Left, value);
+            }
+            else
+            {
+                if (node.Right == null)
+                    node.Right = new Node(value);
+                else
+                    Insert(node.Right, value);
+            }
+        }
+
+        public override String ToString()
+        {
+            var visitedNodes = new List<Node>();
+            Traverse(root, visitedNodes);
+
+            return String.Join(",", visitedNodes.Select(n => n.Value));
+        }
+
+        private void Traverse(Node node, List<Node> visitedNodes)
+        {
+            visitedNodes.Add(node);
+
+            if (node.Left != null)
+                Traverse(node.Left, visitedNodes);
+
+            if (node.Right != null)
+                Traverse(node.Right, visitedNodes);
         }
     }
 }

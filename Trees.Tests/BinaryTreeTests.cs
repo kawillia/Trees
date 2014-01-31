@@ -184,5 +184,64 @@ namespace Trees.Tests
 
             Assert.IsNull(tree.Find(42));
         }
+
+        [TestMethod]
+        public void InsertWithNoRootSetsRoot()
+        {
+            var tree = new BinaryTree(null);
+            tree.Insert(1);
+
+            Assert.AreEqual("1", tree.ToString());
+        }
+
+        [TestMethod]
+        public void InsertValueLessThanRootSetsLeft()
+        {
+            var tree = new BinaryTree(null);
+            tree.Insert(7);
+            tree.Insert(1);
+
+            Assert.AreEqual("7,1", tree.ToString());
+        }
+
+        [TestMethod]
+        public void InsertValueGreaterThanRootSetsRight()
+        {
+            var tree = new BinaryTree(null);
+            tree.Insert(7);
+            tree.Insert(9);
+
+            Assert.AreEqual("7,9", tree.ToString());
+        }
+
+        [TestMethod]
+        public void InsertValueLessThanLessThanLeftOfRoot()
+        {
+            var tree = new BinaryTree(null);
+            tree.Insert(7);
+            tree.Insert(1);
+            tree.Insert(0);
+
+            Assert.AreEqual("7,1,0", tree.ToString());
+        }
+
+        [TestMethod]
+        public void FullTreeTest()
+        {
+            var tree = new BinaryTree(null);
+            tree.Insert(7);
+            tree.Insert(1);
+            tree.Insert(0);
+            tree.Insert(3);
+            tree.Insert(2);
+            tree.Insert(5);
+            tree.Insert(4);
+            tree.Insert(6);
+            tree.Insert(9);
+            tree.Insert(8);
+            tree.Insert(10);
+
+            Assert.AreEqual("7,1,0,3,2,5,4,6,9,8,10", tree.ToString());
+        }
     }
 }
