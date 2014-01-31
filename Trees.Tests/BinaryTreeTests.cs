@@ -70,5 +70,74 @@ namespace Trees.Tests
 
             Assert.IsTrue(tree.Exists(4));
         }
+
+        [TestMethod]
+        public void FindReturnNodeWhenValueIsRoot()
+        {
+            var root = new Node(7);
+            var tree = new BinaryTree(root);
+            var result = tree.Find(7);
+
+            Assert.AreEqual(7, result.Value);
+        }
+
+        [TestMethod]
+        public void FindReturnsTrueWhenValueIsOnSecondLevel()
+        {
+            var root = new Node(7);
+            root.Left = new Node(1);
+            root.Right = new Node(9);
+
+            var tree = new BinaryTree(root);
+            var result = tree.Find(9);
+
+            Assert.AreEqual(9, result.Value);
+        }
+
+        [TestMethod]
+        public void FindReturnsTrueWhenValueIsOnLeftOfThirdLevel()
+        {
+            var root = new Node(7);
+            root.Left = new Node(1);
+            root.Right = new Node(9);
+            root.Left.Left = new Node(0);
+
+            var tree = new BinaryTree(root);
+            var result = tree.Find(0);
+
+            Assert.AreEqual(0, result.Value);
+        }
+
+        [TestMethod]
+        public void FindReturnsTrueWhenValueIsOnRightOfThirdLevelWhenLeftIsNull()
+        {
+            var root = new Node(7);
+            root.Left = new Node(1);
+            root.Right = new Node(9);
+            root.Left.Right = new Node(3);
+
+            var tree = new BinaryTree(root);
+            var result = tree.Find(3);
+
+            Assert.AreEqual(3, result.Value);
+        }
+
+        [TestMethod]
+        public void FindReturnsNullWhenValueIsNotInTrue()
+        {
+            var root = new Node(7);
+            root.Left = new Node(1);
+            root.Right = new Node(9);
+            root.Left.Left = new Node(0);
+            root.Left.Right = new Node(3);
+            root.Left.Right.Left = new Node(2);
+            root.Left.Right.Right = new Node(5);
+            root.Left.Right.Right.Left = new Node(4);
+            root.Left.Right.Right.Right = new Node(6);
+
+            var tree = new BinaryTree(root);
+
+            Assert.IsNull(tree.Find(42));
+        }
     }
 }

@@ -30,5 +30,27 @@ namespace Trees
 
             return Exists(node.Left, value) || Exists(node.Right, value);
         }
+
+        public Node Find(Int32 value)
+        {
+            return Find(root, value);
+        }
+
+        private Node Find(Node node, Int32 value)
+        {
+            var currentNode = node;
+
+            while (currentNode != null)
+            {
+                if (currentNode == null || currentNode.Value == value)
+                    return currentNode;
+                else if (currentNode.Value > value)
+                    return Find(node.Left, value);
+                else
+                    return Find(node.Right, value);
+            }
+
+            return null;
+        }
     }
 }
