@@ -90,6 +90,14 @@ namespace Trees.Tests
         }
 
         [TestMethod]
+        public void ExistsReturnsFalseWhenTreeHasNoRoot()
+        {
+            var tree = new BinaryTree(null);
+
+            Assert.IsFalse(tree.Exists(1));
+        }
+
+        [TestMethod]
         public void FindReturnNodeWhenValueIsRoot()
         {
             var root = new Node(7);
