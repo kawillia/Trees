@@ -10,6 +10,8 @@ namespace Trees
     {
         private Node root;
 
+        public BinaryTree() { }
+
         public BinaryTree(Node root)
         {
             this.root = root;
@@ -89,6 +91,9 @@ namespace Trees
 
         private void Traverse(Node node, List<Node> visitedNodes)
         {
+            if (node == null)
+                return;
+
             visitedNodes.Add(node);
 
             if (node.Left != null)
@@ -96,6 +101,27 @@ namespace Trees
 
             if (node.Right != null)
                 Traverse(node.Right, visitedNodes);
+        }
+
+        public void Delete(Int32 value)
+        {
+            Delete(root, value);
+        }
+
+        private void Delete(Node node, Int32 value)
+        {
+            var nodeToDelete = Find(node, value);
+            var leftMostChild = GetLeftMostChild(nodeToDelete.Right);
+            nodeToDelete.Value = leftMostChild.Value;
+            leftMostChild = null;
+        }
+
+        private Node GetLeftMostChild(Node node)
+        {
+            if (node.Left == null)
+                return node;
+
+            return GetLeftMostChild(node.Left);
         }
     }
 }

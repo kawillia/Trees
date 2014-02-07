@@ -226,7 +226,7 @@ namespace Trees.Tests
         }
 
         [TestMethod]
-        public void FullTreeTest()
+        public void InsertFullTreeTest()
         {
             var tree = new BinaryTree(null);
             tree.Insert(7);
@@ -242,6 +242,36 @@ namespace Trees.Tests
             tree.Insert(10);
 
             Assert.AreEqual("7,1,0,3,2,5,4,6,9,8,10", tree.ToString());
+        }
+
+        [TestMethod]
+        public void DeleteWhereOnlyRootExists()
+        {
+            var root = new Node(7);
+            var tree = new BinaryTree(root);
+            tree.Delete(7);
+
+            Assert.AreEqual(String.Empty, tree.ToString());
+        }
+
+        [TestMethod]
+        public void DeleteFromLeftOfRootNodeIsRemoved()
+        {
+            var tree = new BinaryTree(null);
+            tree.Insert(7);
+            tree.Insert(1);
+            tree.Insert(0);
+            tree.Insert(3);
+            tree.Insert(2);
+            tree.Insert(5);
+            tree.Insert(4);
+            tree.Insert(6);
+            tree.Insert(9);
+            tree.Insert(8);
+            tree.Insert(10);
+            tree.Delete(1);
+
+            Assert.AreEqual("7,2,0,3,5,4,6,9,8,10", tree.ToString());
         }
     }
 }
